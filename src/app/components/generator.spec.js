@@ -41,7 +41,7 @@ describe('GeneratorFactory ', function(){
   });
 
   it("should not renderize without a selected", function () {
-    var test = new GeneratorFactory('', { testing : {} });
+    new GeneratorFactory('', { testing : {} });
     expect($('#mainApp').html).not.toHaveBeenCalled();
   });
 });

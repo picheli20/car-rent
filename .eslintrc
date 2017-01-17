@@ -1,11 +1,19 @@
 {
   "extends": "eslint:recommended",
   "env": {
+    "jquery": true,
     "browser": true,
     "jasmine": true
   },
   "globals": {
-    "module": true,
-    "inject": true
+    "GeneratorFactory": true,
+    "CarFactory": true,
+    "WrapperFactory": true,
+    "HeaderFactory": true,
+    "CarsService": true,
+    "app" : true
+  },
+  "rules":{
+      "no-console":0
   }
 }

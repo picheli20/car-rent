@@ -1,9 +1,17 @@
 (function (global) {
   function CarsService(url){
-    $.get(url, function(data){
-      console.log(data);
-    });
+    var self = this;
+    self.url = url;
+    self.factory = null;
+  }
+  CarsService.prototype.load = function (callback) {
+    var self = this;
+    if(!self.factory){
+      console.error('The factory attribute is not setted!');
+      return;
+    }
+    $.get(self.url, callback);
   }
 
-  global.Cars = new CarsService('/assets/data/cars.json');
+  global.CarsService = new CarsService('/assets/data/cars.json');
 })(window);

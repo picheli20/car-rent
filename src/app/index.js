@@ -5,17 +5,25 @@
       global.WrapperFactory  = GeneratorFactory.bind(null, '/app/components/wrapper/wrapper.html');
       global.HeaderFactory  = GeneratorFactory.bind(null, '/app/components/header/header.html');
 
-      var header = new HeaderFactory({}, '#AppHeader');
-      var wrapper = new WrapperFactory({ title : 'Ford' }, '#mainApp');
+
       var cars = [
         { name : 'Ka', price : 599.00 },
         { name : 'Ka 2', price : 909.00 },
         { name : 'Ka 3', price : 90.00 }
 
       ];
-      var car = new CarFactory(cars, '#car-content');
+
+      new global.HeaderFactory({}, '#AppHeader');
+      new global.WrapperFactory({ title : 'Ford' }, '#mainApp');
+      new global.CarFactory(cars, '#car-content');
+
+      CarsService.factory = global.CarFactory;
+      CarsService.load(function(data) {
+        // TODO: process the json
+        console.log(data)
+      });
     }
   }
 
-  $( document ).ready(app.init);
+  $( document ).ready(global.app.init);
 })(window);
