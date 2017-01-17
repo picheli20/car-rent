@@ -20,9 +20,9 @@
     self.loadTemplate(name);
   };
 
-  GeneratorFactory.prototype.loadTemplate = function(name){
+  GeneratorFactory.prototype.loadTemplate = function(name, reload){
     var self = this;
-    if(self.registry[name].template){
+    if(self.registry[name].template && !reload){
       return;
     }
 

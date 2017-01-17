@@ -1,6 +1,6 @@
 describe('GeneratorFactory ', function(){
 
-  GeneratorFactory.register('test', '');
+  GeneratorFactory.register('test', '/test/');
 
 	beforeEach(function () {
     $.get = function(){};
@@ -11,6 +11,14 @@ describe('GeneratorFactory ', function(){
     spyOn($.fn, 'html');
     spyOn(console, 'error');
 	});
+
+  it("should register the test", function () {
+    expect(GeneratorFactory.registry['test']).toBeDefined();
+  });
+  it("should get the template", function () {
+    GeneratorFactory.loadTemplate('test')
+    expect(GeneratorFactory.registry['test']).toBeDefined();
+  });
 
   it("should be to parse the correct template", function () {
     GeneratorFactory.renderize('test', { testing : 'foo' }, '#mainApp');
@@ -41,27 +49,9 @@ describe('GeneratorFactory ', function(){
   it("should renderize object", function () {
     $.get.isSpy = false;
     $.get = function(url, callback){ callback('{testing.a} '); };
+    GeneratorFactory.loadTemplate('test', true)
     
     var template = GeneratorFactory.renderize('test', { testing : { a : 1} }, '#mainApp');
     expect(template).toEqual('1 ');
-  });
-
-  it("should not renderize without a selected", function () {
-    GeneratorFactory.renderize('test', { testing : {} });
-    expect($('#mainApp').html).not.toHaveBeenCalled();
-  });
-
-  it("should update the template", function () {
-
-    var tests = [
-      { testing : 'foo' },
-      { testing : 'bar' }
-    ]
-    var template = GeneratorFactory.renderize('test', tests, '#mainApp');
-    expect(template).toEqual('foo bar ');
-    self.registry['test'].data[0].testing = 'bar';
-    self.registry['test'].data[1].testing = 'foo';
-    template = GeneratorFactory.renderize('test');
-    expect(template).toEqual('foo bar ');
   });
 });
