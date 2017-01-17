@@ -1,4 +1,5 @@
 (function(global) {
+  'use strict';
   function GeneratorFactory (templatePath, data, elSelector) {
     var self = this;
     self.data = data;

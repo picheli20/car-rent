@@ -12,14 +12,7 @@ describe('GeneratorFactory ', function(){
     expect(CarsService).toBeDefined();
   });
 
-  it("should trow a error if has no factory", function () {
-    CarsService.factory = null;
-    CarsService.load();
-    expect(console.error).toHaveBeenCalled();
-  });
-
-  it("should load the itens normally", function () {
-    CarsService.factory = CarFactory;
+  it("should load the itens", function () {
     CarsService.load(function(data){
       expect(data.length).toBe(1);
     });

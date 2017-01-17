@@ -1,4 +1,5 @@
 (function(global){
+  'use strict';
   global.app = {
     init : function () {
       global.CarFactory      = GeneratorFactory.bind(null, '/app/components/car/car.html');
