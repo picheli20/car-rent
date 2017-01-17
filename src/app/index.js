@@ -3,7 +3,9 @@
     init : function () {
       global.CarFactory      = GeneratorFactory.bind(null, '/app/components/car/car.html');
       global.WrapperFactory  = GeneratorFactory.bind(null, '/app/components/wrapper/wrapper.html');
+      global.HeaderFactory  = GeneratorFactory.bind(null, '/app/components/header/header.html');
 
+      var header = new HeaderFactory({}, '#AppHeader');
       var wrapper = new WrapperFactory({ title : 'Ford' }, '#mainApp');
       var cars = [
         { name : 'Ka', price : 599.00 },
