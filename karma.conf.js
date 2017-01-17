@@ -57,7 +57,6 @@ module.exports = function(config) {
       'karma-phantomjs-launcher',
       'karma-phantomjs-shim',
       'karma-coverage',
-      'karma-coverage',
       'karma-jasmine'
     ],
 
