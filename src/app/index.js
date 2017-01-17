@@ -5,7 +5,6 @@
       global.WrapperFactory  = GeneratorFactory.bind(null, '/app/components/wrapper/wrapper.html');
       global.HeaderFactory  = GeneratorFactory.bind(null, '/app/components/header/header.html');
 
-
       var cars = [
         { name : 'Ka', price : 599.00 },
         { name : 'Ka 2', price : 909.00 },
