@@ -11,33 +11,38 @@
 
   GeneratorFactory.prototype.renderize = function() {
     var self = this;
-    var call = renderizeOne;
+    var call = processOneTemplate;
     if(self.data.constructor === Array){
-      call = renderizeMultiple;
+      call = processMultipleTemplate;
     }
 
-    return call(self.data, self.template);
+    var renderizedTemplate = call(self.data, self.template);
+    
+    if(self.selector){
+      $(self.selector).html(renderizedTemplate);
+    }
+
+    return renderizedTemplate;
   };
 
   GeneratorFactory.prototype.loadTemplate = function(){
     var self = this;
     $.get(self.templatePath, function(data){
       self.template = data;
-      self.renderized = self.renderize();
-      if(self.selector) $(self.selector).html(self.renderized);
+      self.renderize();
     });
   };
 
-  function renderizeMultiple(data, template){
+  function processMultipleTemplate(data, template){
     var finalTemplate = '';
     data.map(function(item){
-      finalTemplate += renderizeOne(item, template);
+      finalTemplate += processOneTemplate(item, template);
     });
 
     return finalTemplate;
   }
 
-  function renderizeOne(data, template){
+  function processOneTemplate(data, template){
     return template.replace(/{([^{}]*)}/g, function (a, b) {
         var r = data[b];
         return typeof r === 'string' || typeof r === 'number' || typeof r === 'boolean' ? r : a;

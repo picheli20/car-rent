@@ -10,19 +10,19 @@ describe('GeneratorFactory ', function(){
 	});
 
   it("should be to parse the correct template", function () {
-    var test = new GeneratorFactory('', { testing : 'tested' }, '#mainApp');
+    var test = new GeneratorFactory('', { testing : 'foo' }, '#mainApp');
     expect(test.template).toEqual('{testing} ');
-    expect(test.renderize()).toEqual('tested ');
+    expect(test.renderize()).toEqual('foo ');
     expect($('#mainApp').html).toHaveBeenCalled();
   });
 
   it("should be renderize multiple element", function () {
     var tests = [
-      { testing : 'tested' },
-      { testing : 'tested2' }
+      { testing : 'foo' },
+      { testing : 'bar' }
     ]
     var test = new GeneratorFactory('', tests, '#mainApp');
-    expect(test.renderize()).toEqual('tested tested2 ');
+    expect(test.renderize()).toEqual('foo bar ');
   });
 
   it("should renderize number", function () {
@@ -43,5 +43,20 @@ describe('GeneratorFactory ', function(){
   it("should not renderize without a selected", function () {
     new GeneratorFactory('', { testing : {} });
     expect($('#mainApp').html).not.toHaveBeenCalled();
+  });
+
+  it("should update the template", function () {
+    new GeneratorFactory('', { testing : {} });
+    expect($('#mainApp').html).not.toHaveBeenCalled();
+
+    var tests = [
+      { testing : 'bar' },
+      { testing : 'foo' }
+    ]
+    var test = new GeneratorFactory('', tests, '#mainApp');
+    expect(test.renderize()).toEqual('bar foo ');
+    test.data[0].testing = 'foo';
+    test.data[1].testing = 'bar';
+    expect(test.renderize()).toEqual('foo bar ');
   });
 });

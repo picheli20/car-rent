@@ -19,10 +19,6 @@ gulp.task('partials', function () {
       collapseBooleanAttributes: true,
       collapseWhitespace: true
     }))
-    .pipe($.angularTemplatecache('templateCacheHtml.js', {
-      module: 'carRent',
-      root: 'app'
-    }))
     .pipe(gulp.dest(conf.paths.tmp + '/partials/'));
 });
 
@@ -68,6 +64,12 @@ gulp.task('fonts', function () {
     .pipe($.flatten())
     .pipe(gulp.dest(path.join(conf.paths.dist, '/fonts/')));
 });
+gulp.task('templates', function () {
+  return gulp.src($.mainBowerFiles())
+    .pipe($.filter('**/*.html'))
+    .pipe($.flatten())
+    .pipe(gulp.dest(path.join(conf.paths.dist, '/app/')));
+});
 
 gulp.task('other', function () {
   var fileFilter = $.filter(function (file) {
@@ -76,7 +78,7 @@ gulp.task('other', function () {
 
   return gulp.src([
     path.join(conf.paths.src, '/**/*'),
-    path.join('!' + conf.paths.src, '/**/*.{html,css,js}')
+    path.join('!' + conf.paths.src, '/**/*.{css,js}')
   ])
     .pipe(fileFilter)
     .pipe(gulp.dest(path.join(conf.paths.dist, '/')));
