@@ -1,15 +1,13 @@
 (function(global) {
-  function GeneratorFactory (url, data, elSelector) {
+  function GeneratorFactory (templatePath, data, elSelector) {
     var self = this;
     self.data = data;
     self.selector = elSelector;
-    $.get(url, function(data){
-      self.template = data;
-      if(elSelector) $(elSelector).html(self.renderize());
-    });
+    self.template = '';
+    self.renderized = '';
+    self.templatePath = templatePath;
+    self.loadTemplate();
   }
-
-  GeneratorFactory.template = '';
 
   GeneratorFactory.prototype.renderize = function() {
     var self = this;
@@ -19,6 +17,15 @@
     }
 
     return call(self.data, self.template);
+  };
+
+  GeneratorFactory.prototype.loadTemplate = function(){
+    var self = this;
+    $.get(self.templatePath, function(data){
+      self.template = data;
+      self.renderized = self.renderize();
+      if(self.selector) $(self.selector).html(self.renderized);
+    });
   };
 
   function renderizeMultiple(data, template){

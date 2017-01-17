@@ -1,6 +1,6 @@
 $( document ).ready(function () {
-  CarFactory      = GeneratorFactory.bind(null, '/app/components/car/car.html');
-  WrapperFactory  = GeneratorFactory.bind(null, '/app/components/wrapper/wrapper.html');
+  var CarFactory      = GeneratorFactory.bind(null, '/app/components/car/car.html');
+  var WrapperFactory  = GeneratorFactory.bind(null, '/app/components/wrapper/wrapper.html');
 
   var wrapper = new WrapperFactory({ title : 'Ford' }, '#mainApp');
   var cars = [
