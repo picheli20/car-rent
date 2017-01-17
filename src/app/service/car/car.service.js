@@ -6,8 +6,13 @@
   }
   CarsService.prototype.load = function (callback) {
     var self = this;
-    $.get(self.url, callback);
-  }
+    $.get(self.url, function(json){
+      
+      var data = json;
+      ['VehAvailRSCore', 'VehRentalCore' , 'VehVendorAvails', 'Vendor', 'VehAvails']
+      callback(data);
+    });
+  };
 
   global.CarsService = new CarsService('/assets/data/cars.json');
 })(window);

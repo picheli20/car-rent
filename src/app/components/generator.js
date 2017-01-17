@@ -1,37 +1,73 @@
 (function(global) {
   'use strict';
-  function GeneratorFactory (templatePath, data, elSelector) {
-    var self = this;
-    self.data = data;
-    self.selector = elSelector;
-    self.template = '';
-    self.renderized = '';
-    self.templatePath = templatePath;
-    self.loadTemplate();
+  function GeneratorFactory () {
+    this.registry = {};
   }
 
-  GeneratorFactory.prototype.renderize = function() {
+  GeneratorFactory.prototype.register = function(name, url){
+    var self = this;
+
+    self.registry[name] = self.registry[name] || {
+      templatePath : url,
+      template : null,
+      lastRender : null,
+      callbacks : [],
+      data : [],
+      elSelector : [],
+      loaded: false
+    };
+
+    self.loadTemplate(name);
+  };
+
+  GeneratorFactory.prototype.loadTemplate = function(name){
+    var self = this;
+    if(self.registry[name].template){
+      return;
+    }
+
+    $.get(self.registry[name].templatePath, function(data){
+      self.registry[name].template = data;
+      self.registry[name].loaded = true;
+      self.registry[name].callbacks.map(function(callback){
+        callback();
+      });
+      self.registry[name].callbacks = [];
+    });
+  };
+
+  GeneratorFactory.prototype.renderize = function(name, data, elSelector) {
     var self = this;
     var call = processOneTemplate;
-    if(self.data.constructor === Array){
+
+
+    if(!self.registry[name]){
+      console.error('The ' + name + ' is not registred! Please first call GeneratorFactory.register(<name>, <url>)');
+      return;
+    }
+
+    // just renderize with the setted value if we don't receive it.
+
+    self.registry[name].data = data || self.registry[name].data || null;
+    self.registry[name].elSelector = elSelector || self.registry[name].elSelector || null;
+
+    // if is not loaded yet, add to the queue
+    if(!self.registry[name].loaded){
+      self.registry[name].callbacks.push(function(){ self.renderize(name, data, elSelector) });
+      return;
+    }
+
+    if(self.registry[name].data.constructor === Array){
       call = processMultipleTemplate;
     }
 
-    var renderizedTemplate = call(self.data, self.template);
+    self.registry[name].lastRender = call(self.registry[name].data, self.registry[name].template);
     
-    if(self.selector){
-      $(self.selector).html(renderizedTemplate);
+    if(self.registry[name].elSelector){
+      $(self.registry[name].elSelector).html(self.registry[name].lastRender);
     }
 
-    return renderizedTemplate;
-  };
-
-  GeneratorFactory.prototype.loadTemplate = function(){
-    var self = this;
-    $.get(self.templatePath, function(data){
-      self.template = data;
-      self.renderize();
-    });
+    return self.registry[name].lastRender;
   };
 
   function processMultipleTemplate(data, template){
@@ -44,11 +80,18 @@
   }
 
   function processOneTemplate(data, template){
-    return template.replace(/{([^{}]*)}/g, function (a, b) {
-        var r = data[b];
-        return typeof r === 'string' || typeof r === 'number' || typeof r === 'boolean' ? r : a;
+    var layout = template.replace(/{([^{}]*)}/g, function (a, b) {
+        var attrTree = b.split('.');
+        var r = data;
+        attrTree.map(function (attr) {
+          r = r[attr];
+        });
+
+        return r;
     });
+
+    return layout;
   }
 
-  global.GeneratorFactory = GeneratorFactory;
+  global.GeneratorFactory = new GeneratorFactory();
 })(window);
