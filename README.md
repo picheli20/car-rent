@@ -1,4 +1,5 @@
 # POC of Car Rent
+[![Build Status](https://api.travis-ci.org/picheli20/car-rent.svg?branch=master)](http://travis-ci.org/picheli20/car-rent)
 
 ##Dependencies
 
