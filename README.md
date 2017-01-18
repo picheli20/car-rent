@@ -2,7 +2,7 @@
 
 ##Dependencies
 
-To run this project you need to have:
+To run this project you should have:
 
 * NodeJS ([link](https://nodejs.org/))
 * Bower ([link](http://bower.io/))
