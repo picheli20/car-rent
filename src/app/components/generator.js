@@ -36,6 +36,10 @@
     });
   };
 
+  GeneratorFactory.prototype.remove = function(elSelector){
+    $(elSelector).html('');
+  };
+
   GeneratorFactory.prototype.renderize = function(name, elSelector, data) {
     var self = this;
     var call = processOneTemplate;

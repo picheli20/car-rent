@@ -2,19 +2,43 @@
   'use strict';
 
   var cachedList = null;
+  var url = '/assets/data/cars.json';
 
-  function CarsService(url){
+  function CarsService(){}
+  CarsService.prototype.load = function (code, callback) {
     var self = this;
-    self.url = url;
-  }
-  CarsService.prototype.load = function (callback) {
-    var self = this;
+    if(code){
+      loadOne(code, callback);
+      return;
+    }
     if(cachedList){
       loadCars(callback)(cachedList);
       return;
     }
-    $.get(self.url, loadCars(callback));
+    $.get(url, loadCars(callback));
   };
+
+  function loadOne(code, callback){
+    var result = {};
+    var loadFunc = loadCars(function(json){
+      json.map(function(item){
+        item.VehAvailRSCore.cars.map(function(carItem){
+          if(carItem.Vehicle['@Code'] == code.code && carItem.Vehicle.VehMakeModel['@Name'] == code.name ){
+            result = carItem;
+          }
+        });
+      });
+      callback(result);
+    });
+
+    if(cachedList){
+      loadFunc(cachedList);
+      return;
+    }
+    $.get(url, loadFunc);
+
+  }
+
   function loadCars(callback){
     return function(json){
 
@@ -45,7 +69,7 @@
   }
   
 
-  global.CarsService = new CarsService('/assets/data/cars.json');
+  global.CarsService = new CarsService();
 })(window);
 
 
