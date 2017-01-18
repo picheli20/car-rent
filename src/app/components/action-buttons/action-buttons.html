@@ -1,0 +1,17 @@
+<div class="sort-by">
+    <label>Sort by</label>
+    <select id="sort-by" onchange="app.sortReload()">
+        <option value="TotalCharge.@EstimatedTotalAmount">Price</option>
+        <option value="Vehicle.VehMakeModel.@Name:string">Name</option>
+        <option value="Vehicle.@TransmissionType:string">Transmission Type</option>
+        <option value="Vehicle.@BaggageQuantity:numberic:asc">Baggage Quantity</option>
+    </select>
+</div>
+<div class="group-by" onclick="app.groupByVendor();">
+    <span class="vendor">
+        Group by <b>Vendors</b>
+    </span>
+    <span class="hidden show-list">
+        <i class="fa fa-list" aria-hidden="true"></i> Show List
+    </span>
+</div>
