@@ -46,12 +46,31 @@ describe('GeneratorFactory ', function(){
     expect(template).toEqual('true ');
   });
 
+  it("should renderize without a selector", function () {
+    GeneratorFactory.register('newTest', '/test/');
+    var template = GeneratorFactory.renderize('newTest', null, { testing : true });
+    expect(template).toEqual('true ');
+  });
+
   it("should renderize object", function () {
     $.get.isSpy = false;
     $.get = function(url, callback){ callback('{testing.a} '); };
-    GeneratorFactory.loadTemplate('test', true)
+    GeneratorFactory.loadTemplate('test', true);
+    GeneratorFactory.loadTemplate('test');
     
     var template = GeneratorFactory.renderize('test', '#mainApp', { testing : { a : 1} });
     expect(template).toEqual('1 ');
+  });
+
+  it("should don't load the template twice", function () {
+    GeneratorFactory.loadTemplate('test');
+    expect($.get).not.toHaveBeenCalled();
+  });
+
+  it("should not renderize a undefined name", function () {
+    $.get.isSpy = false;
+    $.get = function(url, callback){ callback('{testing.a} '); };
+    GeneratorFactory.renderize('test2');
+    expect(console.error).toHaveBeenCalled();
   });
 });
