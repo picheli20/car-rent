@@ -47,7 +47,8 @@
         render(cars);
       });
     },
-    sortBy: $('#sort-by').val(),
+    // TODO since the action buttons is loaded in asc, think in another solution to load the defined value
+    sortBy: 'TotalCharge.@EstimatedTotalAmount',//$('#sort-by').val(),
     sortReload : function(){
       app.sortBy = $('#sort-by').val();
       app.reload();
