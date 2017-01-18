@@ -74,9 +74,7 @@
           app.reload();
           break;
         default:
-          console.log('redirect to home');
           window.location.hash = '#/home';
-          // statements_def
           break;
       }
     }
