@@ -1,1 +1,42 @@
-<h1>Detail PAge!!</h1>
+<div class="popup">
+  <div class="detail-page">
+    <h1>{Vehicle.VehMakeModel.@Name}</h1>
+    <div class="car-image">
+      <img src="{Vehicle.PictureURL}">
+    </div>
+    <p>Passenger Quantity : {Vehicle.@PassengerQuantity}</p>
+    <p>Transmission Type : {Vehicle.@TransmissionType}</p>
+    <p>Fuel Type : {Vehicle.@FuelType}</p>
+    <p>Baggage Quantity : {Vehicle.@BaggageQuantity}</p>
+    <p>Passenger Quantity : {Vehicle.@PassengerQuantity}</p>
+    <p>Doors : {Vehicle.@DoorCount}</p>
+    <div class="detailResultsTable">
+      <div class="header">
+        <div class="col type"></div>
+        <div class="col location">Location</div>
+        <div class="col date">Date</div>
+      </div>
+      <div class="row">
+        <div class="col type">Pickup</div>
+        <div class="col location">{VehRentalCore.PickUpLocation.@Name}</div>
+        <div class="col date">{VehRentalCore.@PickUpDateTime}</div>
+      </div>
+      <div class="row">
+        <div class="col type">Return</div>
+        <div class="col location">{VehRentalCore.ReturnLocation.@Name}</div>
+        <div class="col date">{VehRentalCore.@ReturnDateTime}</div>
+      </div>
+    </div>
+
+    <div class="car-price">
+      <small>{TotalCharge.@CurrencyCode}</small> {TotalCharge.@EstimatedTotalAmount}
+    </div>
+    <div class="button-rent">
+
+      <div class="back">
+        <button class="button" onclick="app.closeModal()">Close</button>
+      </div>
+      <button class="button">Reserve now!</button>
+    </div>
+  </div>
+</div>

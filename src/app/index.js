@@ -1,32 +1,32 @@
 (function(global){
   'use strict';
   var isGruppedyVendor = false;
-  var carRender;
-  var vendorRender;
   var locationRender;
   var locationGroupRender;
   var detailRender;
-  var actionButtonsRender;
   global.app = {
     init : function () {
       GeneratorFactory.register('car', '/app/components/car/car.html');
-      GeneratorFactory.register('detail', '/app/components/detail/detail.html');
       GeneratorFactory.register('vendor', '/app/components/vendor/vendor.html');
       GeneratorFactory.register('header', '/app/components/header/header.html');
       GeneratorFactory.register('location', '/app/components/location/location.html');
       GeneratorFactory.register('location-group', '/app/components/location/location-group.html');
-      GeneratorFactory.register('action-buttons', '/app/components/action-buttons/action-buttons.html');
+      GeneratorFactory.register('detail', '/app/components/detail/detail.html', function(){
+        $('#detail-area .popup').fadeIn(350);
+      });
 
-      carRender           = GeneratorFactory.renderize.bind(GeneratorFactory, 'car');
-      vendorRender        = GeneratorFactory.renderize.bind(GeneratorFactory, 'vendor');
+      GeneratorFactory.register('action-buttons', '/app/components/action-buttons/action-buttons.html', function(){
+        app.sortBy = $('#sort-by').val();
+        app.sortReload();
+      }); 
+
       locationRender      = GeneratorFactory.renderize.bind(GeneratorFactory, 'location', '#content-area');
-      detailRender        = GeneratorFactory.renderize.bind(GeneratorFactory, 'detail', '#content-area');
+      detailRender        = GeneratorFactory.renderize.bind(GeneratorFactory, 'detail', '#detail-area');
       locationGroupRender = GeneratorFactory.renderize.bind(GeneratorFactory, 'location-group', '#content-area');
-      actionButtonsRender = GeneratorFactory.renderize.bind(GeneratorFactory, 'action-buttons', '#action-buttons');
 
       GeneratorFactory.renderize('header', '#AppHeader');
+      GeneratorFactory.renderize('action-buttons', '#action-buttons');
       
-
       app.processPath();
     },
     groupByVendor : function(){
@@ -36,23 +36,33 @@
       app.processPath();
     },
     reload : function(code){
-      CarsService.load(code, function(cars) {
+      CarsService.load(function(cars) {
         var render = locationRender;
-        if(isGruppedyVendor && !code){
+        if(isGruppedyVendor){
           render = locationGroupRender;
-        }else if(code){
-          render = detailRender;
         }
-        console.log(cars);
         render(cars);
+
+        if(code){
+          CarsService.load(function(cars) {
+            detailRender(cars);
+          }, code);
+        }
       });
     },
-    // TODO since the action buttons is loaded in asc, think in another solution to load the defined value
-    sortBy: 'TotalCharge.@EstimatedTotalAmount',//$('#sort-by').val(),
+    closeModal: function(){
+      $('#detail-area .popup').fadeOut(350, function(){
+        window.location.hash = '#/home';
+      });
+    },
     sortReload : function(){
       app.sortBy = $('#sort-by').val();
       app.reload();
     },
+    goTo : function(path){
+      window.location.hash = encodeURI(path);
+    },
+    // "pagination"
     processPath : function(){
       var hashArr = window.location.hash.split('/');
       var action = hashArr.length <= 1 ? '' : hashArr[1];
@@ -62,16 +72,13 @@
             window.location.hash = '#/home';
             return;
           }
-          GeneratorFactory.remove('#action-buttons');
-          var code = hashArr[2];
-          var name = hashArr[3];
           app.reload({
-            code : code,
-            name : name
+            code : hashArr[2],
+            name : decodeURI(hashArr[3])
           });
           break;
         case 'home':
-          actionButtonsRender();
+          GeneratorFactory.remove('#detail-area');
           app.reload();
           break;
         default:

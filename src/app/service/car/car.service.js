@@ -5,8 +5,7 @@
   var url = '/assets/data/cars.json';
 
   function CarsService(){}
-  CarsService.prototype.load = function (code, callback) {
-    var self = this;
+  CarsService.prototype.load = function (callback, code) {
     if(code){
       loadOne(code, callback);
       return;
@@ -25,6 +24,7 @@
         item.VehAvailRSCore.cars.map(function(carItem){
           if(carItem.Vehicle['@Code'] == code.code && carItem.Vehicle.VehMakeModel['@Name'] == code.name ){
             result = carItem;
+            carItem.VehRentalCore = item.VehAvailRSCore.VehRentalCore;
           }
         });
       });
@@ -43,7 +43,6 @@
     return function(json){
 
       cachedList = $.extend(true, [], json);
-      var data = [];
 
       json.map(function(item){
         var vehicleCore = item.VehAvailRSCore.VehRentalCore;

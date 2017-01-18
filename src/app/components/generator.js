@@ -4,7 +4,7 @@
     this.registry = {};
   }
 
-  GeneratorFactory.prototype.register = function(name, url){
+  GeneratorFactory.prototype.register = function(name, url, onRenderize){
     var self = this;
 
     self.registry[name] = self.registry[name] || {
@@ -14,7 +14,8 @@
       callbacks : [],
       data : [],
       elSelector : [],
-      loaded: false
+      loaded: false,
+      onRenderize : onRenderize
     };
 
     self.loadTemplate(name);
@@ -69,6 +70,9 @@
     
     if(self.registry[name].elSelector){
       $(self.registry[name].elSelector).html(self.registry[name].lastRender);
+      if(self.registry[name].onRenderize){
+        self.registry[name].onRenderize();
+      }
     }
 
     return self.registry[name].lastRender;

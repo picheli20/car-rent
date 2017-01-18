@@ -1,8 +1,8 @@
 <div class="sort-by">
     <label>Sort by</label>
     <select id="sort-by" onchange="app.sortReload()">
-        <option value="TotalCharge.@EstimatedTotalAmount">Price (Low to High)</option>
-        <option value="TotalCharge.@EstimatedTotalAmount:asc">Price (High to Low)</option>
+        <option value="TotalCharge.@EstimatedTotalAmount:numeric">Price (Low to High)</option>
+        <option value="TotalCharge.@EstimatedTotalAmount:numeric:asc">Price (High to Low)</option>
         <option value="Vehicle.VehMakeModel.@Name:string">Name</option>
         <option value="Vehicle.@TransmissionType:string">Transmission Type</option>
         <option value="Vehicle.@BaggageQuantity:numberic:asc">Baggage Quantity</option>

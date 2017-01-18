@@ -18,10 +18,6 @@ function runTests (singleRun, done) {
   var reporters = ['progress'];
   var preprocessors = {};
 
-  pathSrcHtml.forEach(function(path) {
-    preprocessors[path] = ['ng-html2js'];
-  });
-
   if (singleRun) {
     pathSrcJs.forEach(function(path) {
       preprocessors[path] = ['coverage'];

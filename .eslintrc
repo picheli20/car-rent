@@ -7,10 +7,8 @@
   },
   "globals": {
     "GeneratorFactory": true,
-    "CarFactory": true,
-    "WrapperFactory": true,
-    "HeaderFactory": true,
     "CarsService": true,
+    "Util": true,
     "app" : true
   },
   "rules":{

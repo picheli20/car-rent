@@ -36,6 +36,14 @@ body{
   }
 }
 
+.button{
+  font-size: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .clearfix:before,
 .clearfix:after{
   display: table;

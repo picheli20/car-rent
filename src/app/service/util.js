@@ -10,13 +10,12 @@
         "November", "December"
       ];
 
-      var day = date.getDate();
-      var monthIndex = date.getMonth();
-      var year = date.getFullYear();
-
-      return day + ' ' + monthNames[monthIndex] + ' ' + year;
+      return date.getDate() + ' ' + monthNames[date.getMonth()] + ' at ' + date.getHours() + ':' +  + (date.getMinutes()<10?'0':'') + date.getMinutes();
     },
     sort : function (arr, attrStr, reversed){
+      if(!attrStr){
+        return arr;
+      }
       var attrsOpts = attrStr.split(':');
       var isNumeric = attrsOpts.indexOf('numeric') !== -1 || attrsOpts.length === 1;
       // bind a new function with a fixed attrs

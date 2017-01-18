@@ -1,0 +1,117 @@
+.back {
+  position: relative;
+  display: block;
+  float: left;
+
+}
+
+.back .button{
+  background-color: transparent !important;
+  color: #3e3e3e;
+  transition: background-color .5s;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #3e3e3e !important;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.back .button:hover{
+  background-color: #ccc !important;
+}
+
+.popup{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  background-color: rgba(0,0,0,.5);
+  z-index: 100; 
+  display:none;
+}
+.popup.visible{
+  opacity: 1;
+}
+
+.detail-page{
+  background-color: #fff;
+  max-width: 600px;
+  position: relative;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  margin-top: 30px;
+  box-shadow: 0 2px 2px rgba(0,0,0,.2);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: calc(100% - 120px);
+}
+.detail-page h1{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+}
+
+.detail-page .car-price{
+  font-size: 28px;
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.detail-page .car-price small{
+  color: #696969;
+}
+
+.detail-page .button-rent{
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: right;
+}
+
+.detail-page .button{
+  background-color: #3e3e3e;
+  color: #fff;
+}
+
+.detail-page .detailResultsTable{
+  text-align: left;
+}
+
+.detail-page .detailResultsTable .header div, .detail-page .detailResultsTable .row div{
+  display: inline-block;
+  white-space: normal;
+}
+
+.detail-page .detailResultsTable .header, .detail-page .detailResultsTable .type{
+  font-weight: bold;
+  font-size: 12px;
+  color: #848484;
+  padding: 0 15px 5px;
+  white-space: nowrap;
+}
+
+.detail-page .detailResultsTable .row{
+  font-size: 14px;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+  -moz-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+  -o-box-shadow: 0 2px 3px 0 rgba(0,0,0,0.1);
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.detail-page .detailResultsTable .col.type{
+  width: 40px;
+}
+
+.detail-page .detailResultsTable .col.location{
+  width: calc(100% - 247px);
+
+}
+
+.detail-page .detailResultsTable .col.date{
+  width: 200px;
+}
