@@ -45,4 +45,3 @@ bower install
 ##Test Coverage
 
 This project has `karma-coverage`, you can check the `/coverage` folder after running the `gulp test` command
-
