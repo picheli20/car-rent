@@ -1,4 +1,27 @@
 <div class="car">
-  <h3>{name}</h3>
-  <p>{price}</p>
+	<div class="car-container">
+		<div class="image-container">
+			<img src="{Vehicle.PictureURL}">
+		</div>
+		<div class="car-title">
+			<h3>{Vehicle.VehMakeModel.@Name}</h3>
+		</div>
+		<div class="car-details clearfix">
+			<div title="Passenger Quantity" class="car-items">
+				<i class="icon icon-passenger"></i>{Vehicle.@PassengerQuantity}
+			</div>
+			<div title="Transmission Type" class="car-items">
+				<i class="icon icon-transmission"></i>{Vehicle.@TransmissionType}
+			</div>
+			<div title="Fuel Type" class="car-items">
+				<i class="icon icon-fuel"></i>{Vehicle.@FuelType}
+			</div>
+			<div title="Baggage Quantity" class="car-items">
+				<i class="fa fa-briefcase"></i>{Vehicle.@BaggageQuantity}
+			</div>
+		</div>
+		<div class="car-price">
+			<small>{TotalCharge.@CurrencyCode}</small> {TotalCharge.@EstimatedTotalAmount}
+		</div>
+	</div>
 </div>

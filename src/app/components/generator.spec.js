@@ -21,7 +21,7 @@ describe('GeneratorFactory ', function(){
   });
 
   it("should be to parse the correct template", function () {
-    GeneratorFactory.renderize('test', { testing : 'foo' }, '#mainApp');
+    GeneratorFactory.renderize('test', '#mainApp', { testing : 'foo' });
     expect(GeneratorFactory.registry['test'].lastRender).toEqual('foo ');
     expect(GeneratorFactory.registry['test'].template).toEqual('{testing} ');
     expect($('#mainApp').html).toHaveBeenCalled();
@@ -32,17 +32,17 @@ describe('GeneratorFactory ', function(){
       { testing : 'foo' },
       { testing : 'bar' }
     ]
-    var template = GeneratorFactory.renderize('test', tests, '#mainApp');
+    var template = GeneratorFactory.renderize('test', '#mainApp', tests);
     expect(template).toEqual('foo bar ');
   });
 
   it("should renderize number", function () {
-    var template = GeneratorFactory.renderize('test', { testing : 2 }, '#mainApp');
+    var template = GeneratorFactory.renderize('test', '#mainApp', { testing : 2 });
     expect(template).toEqual('2 ');
   });
 
   it("should renderize boolean", function () {
-    var template = GeneratorFactory.renderize('test', { testing : true }, '#mainApp');
+    var template = GeneratorFactory.renderize('test', '#mainApp', { testing : true });
     expect(template).toEqual('true ');
   });
 
@@ -51,7 +51,7 @@ describe('GeneratorFactory ', function(){
     $.get = function(url, callback){ callback('{testing.a} '); };
     GeneratorFactory.loadTemplate('test', true)
     
-    var template = GeneratorFactory.renderize('test', { testing : { a : 1} }, '#mainApp');
+    var template = GeneratorFactory.renderize('test', '#mainApp', { testing : { a : 1} });
     expect(template).toEqual('1 ');
   });
 });

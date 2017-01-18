@@ -14,7 +14,7 @@ gulp.task('watch', ['inject'], function () {
 
   gulp.watch([path.join(conf.paths.src, '/*.html'), 'bower.json'], ['inject-reload']);
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.css'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/**/*.css'), function(event) {
     if(isOnlyChange(event)) {
       browserSync.reload(event.path);
     } else {
@@ -26,7 +26,7 @@ gulp.task('watch', ['inject'], function () {
     gulp.start('inject-reload');
   });
 
-  gulp.watch(path.join(conf.paths.src, '/app/**/*.html'), function(event) {
+  gulp.watch(path.join(conf.paths.src, '/**/*.html'), function(event) {
     browserSync.reload(event.path);
   });
 });

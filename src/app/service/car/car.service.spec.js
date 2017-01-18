@@ -3,7 +3,7 @@ describe('GeneratorFactory ', function(){
   beforeEach(function () {
     $.get = function(){};
     spyOn($, "get").and.callFake(function(url, callback){
-      callback([{}]);
+      callback([]);
     });
     spyOn(console, "error");
   });
@@ -14,7 +14,7 @@ describe('GeneratorFactory ', function(){
 
   it("should load the itens", function () {
     CarsService.load(function(data){
-      expect(data.length).toBe(1);
+      expect(data.length).toBe(0);
     });
 
     expect(console.error).not.toHaveBeenCalled();

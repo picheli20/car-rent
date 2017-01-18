@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body{
+	padding: 0;
+	margin: 0;
+  background-color: #e6e6e6;
+}
+
+#content-area{
+  margin-top: 10px;
+}
+
+*{
+	font-family: 'Lato', sans-serif;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.clearfix:before,
+.clearfix:after{
+  display: table;
+  content: " ";
+}
+
+.clearfix:after{
+  clear: both;
+}
+
+.action-buttons {
+  margin-top: 20px;
+}
+
+.action-buttons .group-by{
+  float: right;
+  padding: 10px;
+  margin-top: 19px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.action-buttons .group-by .hidden{
+  display: none;
+}
+
+.action-buttons .sort-by{
+  float: right;
+}
+
+.action-buttons .sort-by label{
+  display: block;
+}
+
+.action-buttons .sort-by select{
+  display: block;
+  width: 100%;
+  height: 41px;
+  padding: 6px 12px;
+  font-size: 16px;
+  line-height: 20px;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/*
+
+Icons
+
+*/
+
+.icon{    
+  width: 16px;
+  height: 17px;
+  padding: 0 4px;
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+.icon-passenger{
+  background-image: url('/assets/images/ic_person_black.svg');
+  background-size: 20px;
+  background-position: 2px 0;
+}
+.icon-fuel{
+  background-image: url('/assets/images/ic_local_gas_station_black.svg');
+  background-size: 18px;
+  background-position: 3px 0;
+}
+.icon-transmission{
+  background-image: url('/assets/images/transmission-icon.png');
+  background-size: 16px;
+  background-position: 3px 0;
+}

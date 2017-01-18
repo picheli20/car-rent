@@ -36,7 +36,7 @@
     });
   };
 
-  GeneratorFactory.prototype.renderize = function(name, data, elSelector) {
+  GeneratorFactory.prototype.renderize = function(name, elSelector, data) {
     var self = this;
     var call = processOneTemplate;
 
@@ -80,14 +80,14 @@
   }
 
   function processOneTemplate(data, template){
-    var layout = template.replace(/{([^{}]*)}/g, function (a, b) {
-        var attrTree = b.split('.');
-        var r = data;
-        attrTree.map(function (attr) {
-          r = r[attr];
-        });
+    var layout = template.replace(/\[(.*?)\]/g, function (a, b) {
+        var registryName = b.split(':')[0];
+        var attrStr = b.split(':')[1];
+        var arr = Util.getAttrFromArr(attrStr, data);
 
-        return r;
+        return global.GeneratorFactory.renderize(registryName, null, arr);
+    }).replace(/{(.*?)}/g, function (a, b) {
+        return Util.getAttrFromArr(b, data);
     });
 
     return layout;

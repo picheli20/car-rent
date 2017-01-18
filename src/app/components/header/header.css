@@ -1,3 +1,14 @@
+body{
+	padding-top: 70px !important;
+}
 header{
-  background-color: gray;
+	background-color: #3e3e3e;
+	height: 20px;
+	color: #fff;
+	padding: 20px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	box-shadow: 0 2px 2px rgba(0,0,0,.2);
 }

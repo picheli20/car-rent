@@ -24,8 +24,30 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <header id="AppHeader"></header>
-    <div class="container">
-      <div id="mainApp"></div>
+    
+
+    <div class="container">    
+        <div class="action-buttons">
+            <div class="sort-by">
+                <label>Sort by</label>
+                <select id="sort-by" onchange="app.sortReload()">
+                    <option value="TotalCharge.@EstimatedTotalAmount">Price</option>
+                    <option value="Vehicle.VehMakeModel.@Name:string">Name</option>
+                    <option value="Vehicle.@TransmissionType:string">Transmission Type</option>
+                    <option value="Vehicle.@BaggageQuantity:numberic:asc">Baggage Quantity</option>
+                </select>
+            </div>
+            <div class="group-by" onclick="app.groupByVendor();">
+                <span class="vendor">
+                    Group by <b>Vendors</b>
+                </span>
+                <span class="hidden show-list">
+                    <i class="fa fa-list" aria-hidden="true"></i> Show List
+                </span>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="content-area" class="clearfix"></div>
     </div>
     
 
